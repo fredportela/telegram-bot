@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "moment": "^2.20.1",
+    "moment-i18n-br": "0.0.1",
     "mongoose": "^5.0.7",
     "node-telegram-bot-api": "^0.30.0",
     "nodemon": "^1.17.1",
@@ -13,7 +15,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "production": "pm2 start index.js telegram-bot"
+    "production": "pm2 start index.js --name telegram-bot"
   },
   "keywords": [],
   "author": "",
