@@ -6,12 +6,6 @@ const { config } = require('./config.js')
 
 const bot = new TelegramBot( config.TOKEN, { polling: true } )
 
-/*
-bot.on('message', function(msg){
-  console.log(msg);
-})
-*/
-
 bot.onText( /\/echo (.+)/, (msg, match) => sendEcho(msg, match));
 bot.onText( /\/gemidao/, sendGemidao);
 bot.onText(/\/help/, (msg, match) => sendHelp(msg, match));
