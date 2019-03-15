@@ -1,23 +1,26 @@
 {
-  "name": "bot-telegram",
+  "name": "telegram-bot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "moment": "^2.20.1",
+    "moment": "^2.24.0",
     "moment-i18n-br": "0.0.1",
-    "mongoose": "^5.0.7",
+    "mongoose": "^5.4.19",
     "node-telegram-bot-api": "^0.30.0",
-    "nodemon": "^1.17.1",
-    "pm2": "^2.10.1",
-    "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "nodemon": "^1.18.10",
+    "pm2": "^2.10.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   },
   "scripts": {
     "dev": "nodemon",
     "production": "pm2 start index.js --name telegram-bot"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Telegram",
+    "BOT"
+  ],
+  "author": "Fred Portela",
   "license": "ISC"
 }
