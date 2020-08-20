@@ -1,4 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api')
+require('dotenv').config()
 const request = require('request')
 const promise = require('request-promise')
 const moment = require('moment')
@@ -46,25 +47,25 @@ var sendHelp = function (msg) {
 var retornaTempoCidade = function(cidade){
   const url_previsao = config.URL_TEMPO.replace('*nome_municipio*', cidade)
   var options = { method: 'GET', uri: url_previsao, body: { some: 'payload' }, json: true };
-
   return promise(options);
 }
 
 var sendTempoCidade = function(msg, match){
   const cidade = match[1]
   retornaTempoCidade(cidade).then(function(tempo_json){
-    const canal = tempo_json.query.results.channel;
-    const location = canal.location;
-    const atmosfera = canal.atmosphere;
-    const condicao = canal.item.condition;
-    const previsao = canal.item.forecast;
-    const descricao = canal.item.description;
+   // const canal = tempo_json.query.results.channel;
+	const canal = tempo_json;
+//    const location = canal.location;
+//    const atmosfera = canal.atmosphere;
+//    const condicao = canal.item.condition;
+  //  const previsao = canal.item.forecast;
+    const descricao = canal.weather[0].description;
   
-    var mensagem = location.city+'/'+location.region;
-    mensagem += " com "+ atmosfera.humidity +'% de humidade'
-    mensagem += `\nTemperatura atual: ${Math.round((Number(condicao.temp)/2.866),2)}ºC`
-    mensagem += `\nMínima: ${Math.round((Number(previsao[0].low)/2.866),2)}ºC`
-    mensagem += `\nMáxima: ${Math.round((Number(previsao[0].high)/2.866),2)}ºC`
+    var mensagem = canal.name+'/'+canal.sys.country;
+    mensagem += " com "+ canal.main.humidity +'% de humidade'
+    mensagem += `\nTemperatura atual: ${canal.main.temp}ºC`
+    mensagem += `\nMínima: ${canal.main.temp_min}ºC`
+    mensagem += `\nMáxima: ${canal.main.temp_max}ºC`
   
     bot.sendMessage( msg.chat.id, mensagem)
   }).catch(function (err) {

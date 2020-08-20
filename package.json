@@ -4,18 +4,19 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "moment": "^2.20.1",
+    "dotenv": "^8.2.0",
+    "moment": "~2.27.0",
     "moment-i18n-br": "0.0.1",
-    "mongoose": "^5.0.7",
-    "node-telegram-bot-api": "^0.30.0",
-    "nodemon": "^1.17.1",
-    "pm2": "^2.10.1",
-    "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "mongoose": "~5.10.0",
+    "node-telegram-bot-api": "~0.50.0",
+    "nodemon": "^1.19.4",
+    "pm2": "~2.10.4",
+    "request": "~2.88.2",
+    "request-promise": "~4.2.6"
   },
   "scripts": {
     "dev": "nodemon",
-    "production": "pm2 start index.js --name telegram-bot"
+    "production": "pm2 stop telegram-bot && pm2 start index.js --name telegram-bot"
   },
   "keywords": [],
   "author": "",
