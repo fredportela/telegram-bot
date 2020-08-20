@@ -122,7 +122,7 @@ var sendEcho = function(msg, match){
 
 var sendTempoMinhaCidade = function(msg, match){
 
-  retornaTempoCidade('Brasilia,DF').then(function(tempo_json){
+  retornaTempoCidade('Brasilia').then(function(tempo_json){
     const canal = tempo_json;
     const descricao = canal.weather[0].description;
   
@@ -133,7 +133,7 @@ var sendTempoMinhaCidade = function(msg, match){
     
     bot.sendMessage( msg.chat.id, mensagem)
   }).catch(function (err) {
-    bot.sendMessage( msg.chat.id, `Previsão do tempo para 'Brasilia,DF' não encontrada!`)
+    bot.sendMessage( msg.chat.id, `Previsão do tempo para 'Brasilia' não encontrada!`)
   });
 }
 
