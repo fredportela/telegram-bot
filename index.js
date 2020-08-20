@@ -53,12 +53,7 @@ var retornaTempoCidade = function(cidade){
 var sendTempoCidade = function(msg, match){
   const cidade = match[1]
   retornaTempoCidade(cidade).then(function(tempo_json){
-   // const canal = tempo_json.query.results.channel;
-	const canal = tempo_json;
-//    const location = canal.location;
-//    const atmosfera = canal.atmosphere;
-//    const condicao = canal.item.condition;
-  //  const previsao = canal.item.forecast;
+    const canal = tempo_json;
     const descricao = canal.weather[0].description;
   
     var mensagem = canal.name+'/'+canal.sys.country;
@@ -126,19 +121,16 @@ var sendEcho = function(msg, match){
 }
 
 var sendTempoMinhaCidade = function(msg, match){
+
   retornaTempoCidade('Brasilia,DF').then(function(tempo_json){
-    const canal = tempo_json.query.results.channel;
-    const location = canal.location;
-    const atmosfera = canal.atmosphere;
-    const condicao = canal.item.condition;
-    const previsao = canal.item.forecast;
-    const descricao = canal.item.description;
+    const canal = tempo_json;
+    const descricao = canal.weather[0].description;
   
-    var mensagem = `Aqui em ${location.city}/${location.region} onde eu moro`
-    mensagem += ` a Temperatura atual esta em ${Math.round((Number(condicao.temp)/2.866),2)}ºC`
-    mensagem += ` com Mínima prevista de ${Math.round((Number(previsao[0].low)/2.866),2)}ºC`
-    mensagem += ` e Máxima de ${Math.round((Number(previsao[0].high)/2.866),2)}ºC`
-  
+    var mensagem = `Aqui em ${canal.name}/${canal.sys.country} onde eu moro`
+    mensagem += ` a Temperatura atual esta em ${canal.main.temp}ºC`
+    mensagem += ` com Mínima prevista de ${canal.main.temp_min}ºC`
+    mensagem += ` e Máxima de ${canal.main.temp_max}ºC`
+    
     bot.sendMessage( msg.chat.id, mensagem)
   }).catch(function (err) {
     bot.sendMessage( msg.chat.id, `Previsão do tempo para '${cidade}' não encontrada!`)
