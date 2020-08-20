@@ -9,7 +9,9 @@ $npm i
 then create a file called token.js and add the line down with TOKEN generated in the [bot register in the telegram](https://telegram.org/faq/br#bots)
 ```
 exports.TOKEN_KEY = 'TOKEN_KEY'
+exports.API_TOKEN = 'API_TOKEN'
 ```
+Registrar token em https://openweathermap.org/
 
 ### Running bot
 
