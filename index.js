@@ -133,7 +133,7 @@ var sendTempoMinhaCidade = function(msg, match){
     
     bot.sendMessage( msg.chat.id, mensagem)
   }).catch(function (err) {
-    bot.sendMessage( msg.chat.id, `Previsão do tempo para '${cidade}' não encontrada!`)
+    bot.sendMessage( msg.chat.id, `Previsão do tempo para 'Brasilia,DF' não encontrada!`)
   });
 }
 
