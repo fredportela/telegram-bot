@@ -5,12 +5,12 @@
   "main": "index.js",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "moment": "~2.27.0",
+    "moment": "^2.29.4",
     "moment-i18n-br": "0.0.1",
-    "mongoose": "~5.10.0",
+    "mongoose": "^5.13.16",
     "node-telegram-bot-api": "~0.50.0",
-    "nodemon": "^1.19.4",
-    "pm2": "~2.10.4",
+    "nodemon": "^2.0.22",
+    "pm2": "^5.3.0",
     "request": "~2.88.2",
     "request-promise": "~4.2.6"
   },
