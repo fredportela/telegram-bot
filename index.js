@@ -3,6 +3,7 @@ require('dotenv').config()
 const request = require('request')
 const promise = require('request-promise')
 const moment = require('moment')
+const axios = require('axios');
 const { config } = require('./config.js')
 
 const TelegramBaseController = TelegramBot.TelegramBaseController
@@ -35,6 +36,8 @@ bot.onText(/(.*)como(.*)tempo|(.*)tempo(.*)hoje(.*)/ig, (msg, match) => sendTemp
 bot.onText(/(.*)sua idade(.*)|(.*)quantos anos(.*)/ig, (msg, match) => minhaIdade(msg, match));
 bot.onText(/(.*)tem(.*)filho(.*)|(.*)você(.*)filho(.*)|(.*)possui(.*)filho(.*)/ig, (msg, match) => temFilho(msg, match));
 
+bot.onText( /\/gpt (.+)/ig, (msg, match) => sendApiGpt(msg, match));
+
 var sendHelp = function (msg) {
   let mensagem = `Comandos:\n`;
   mensagem += `\n/nudes`;
@@ -48,6 +51,47 @@ var retornaTempoCidade = function(cidade){
   const url_previsao = config.URL_TEMPO.replace('*nome_municipio*', cidade)
   var options = { method: 'GET', uri: url_previsao, body: { some: 'payload' }, json: true };
   return promise(options);
+}
+
+var retornaChatGpt = function(texto){
+  const url_gpt = config.URL_GPT;
+  var options = { method: 'GET', uri: url_gpt, body: { some: 'payload' }, json: true };
+  return promise(options);
+}
+
+async function callGpt4Api(inputText) {
+  const prompt = `Conversa com um chatbot baseado em GPT-4:\nUsuário: ${inputText}\nGPT-4:`;
+  const GPT4_API_KEY = config.GPT4_API_KEY;
+
+  const requestBody = {
+    model: 'gpt-3.5-turbo',
+      'messages': [
+        {
+          role: 'user', 
+          content: inputText
+        }
+    ],
+    temperature: 0.9,
+  };
+
+  const header = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GPT4_API_KEY}`,
+    },
+  };
+
+  const url_gpt = config.URL_GPT;
+  
+  try {
+    const response = await axios.post(url_gpt, requestBody, header);
+    return response.data.choices[0].message.content.trim();
+  } catch (error) {
+    console.error('Erro ao chamar a API GPT-4:', error);
+    throw error;
+    return error;
+  }
+  
 }
 
 var sendTempoCidade = function(msg, match){
@@ -118,6 +162,21 @@ var sendBoaNoite = function (msg, match) {
 
 var sendEcho = function(msg, match){
   bot.sendMessage( msg.chat.id, match[ 1 ] )
+}
+
+var sendApiGpt = async function(msg, match) {
+  console.log(match);
+  var retorno = await callGpt4Api(match[1]);
+  bot.sendMessage( msg.chat.id, retorno);
+  /*
+  retornaChatGpt(msg).then(function(retorno){
+    
+    
+    bot.sendMessage( msg.chat.id, retorno)
+  }).catch(function (err) {
+    bot.sendMessage( msg.chat.id, `Erro`)
+  });
+  */
 }
 
 var sendTempoMinhaCidade = function(msg, match){
